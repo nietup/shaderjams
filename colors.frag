@@ -21,8 +21,13 @@ float plot(float fun, float arg, float thicc, float blur) {
 }
 
 void main() {
-    vec2 uv = gl_FragCoord.xy/u_resolution.xy;
-	uv.x*=u_resolution.x/u_resolution.y;
-    vec3 color=vec3(.0);
+    vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+    uv.x*=u_resolution.x/u_resolution.y;
+    vec3 frq=vec3(1.2,.3,.6);
+    vec3 wav=sin(frq*u_time)*.5+.5;
+    vec3 pwav=sin(uv.x+frq*u_time)*.5+.5;
+    vec3 plots=vec3(plot(pwav[0],uv.y,0.02,0.01),plot(pwav[1],uv.y,0.02,0.01),plot(pwav[2],uv.y,0.02,0.01));
+    vec3 bars=vec3(plot(wav[0],uv.y,0.005,0.01),plot(wav[1],uv.y,0.005,0.01),plot(wav[2],uv.y,0.005,0.01));
+    vec3 color=wav+plots;
     gl_FragColor=vec4(color,1.0);
 }
