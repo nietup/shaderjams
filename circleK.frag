@@ -24,9 +24,15 @@ float sq(float x, float y, float w, float h, vec2 uv) {
     return step(x,uv.x)*step(y,uv.y)*(1.-step(x+w,uv.x))*(1.-step(y+h,uv.y));
 }
 
+float circle(vec2 pos, vec2 uv, float r) {
+    return 1.-step(r,4.*dot(uv-pos,uv-pos));
+}
+
 void main() {
     vec2 uv = gl_FragCoord.xy/u_resolution.xy;
 	uv.x*=u_resolution.x/u_resolution.y;
     vec3 color=vec3(.0);
+    color.r=circle(vec2(.5),uv,.3);
+    color.r*=smth(wave(uv.x,3.,1.,.125,0.5,.0),uv.y,.0,-.25);
     gl_FragColor=vec4(color,1.0);
 }
