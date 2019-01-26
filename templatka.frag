@@ -24,6 +24,10 @@ float sq(float x, float y, float w, float h, vec2 uv) {
     return step(x,uv.x)*step(y,uv.y)*(1.-step(x+w,uv.x))*(1.-step(y+h,uv.y));
 }
 
+float circle(vec2 pos, vec2 uv, float r, float thicc) {
+    return smoothstep(r+thicc,r-thicc,4.*dot(uv-pos,uv-pos));
+}
+
 void main() {
     vec2 uv = gl_FragCoord.xy/u_resolution.xy;
 	uv.x*=u_resolution.x/u_resolution.y;
