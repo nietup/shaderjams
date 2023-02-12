@@ -8,13 +8,12 @@ uniform vec2 u_resolution;
 
 void main() {
 
-	vec2 positionXX = gl_FragCoord.xx / u_resolution.x;
-	vec2 positionYY = gl_FragCoord.yy / u_resolution.x;
+	vec2 position = gl_FragCoord.xy / u_resolution.x;
 	
-	float scale = 40.;
+	float scale = 50.;
 	
-	float horizontalLines = sin(scale * length(positionYY));
-	float verticalLines = sin(scale * length(positionXX));
+	float horizontalLines = sin(scale * position.y);
+	float verticalLines = sin(scale * position.x);
 	
 	float red = horizontalLines;
 	float green = step(.00001, horizontalLines + verticalLines);
@@ -23,3 +22,4 @@ void main() {
 	gl_FragColor = vec4( vec3( red, green, blue ), 1.0 );
 
 }
+//todo figure out why sines cancel out until they cross
