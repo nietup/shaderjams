@@ -19,9 +19,10 @@ void main() {
 	float leftWave = sin(amplitude * distance(leftEpicentre, position) + phase);
 	float rightWave = sin(amplitude * distance(rigtEpicentre, position) + phase);
 	
-	float red = 0.;//rightWave;
+	float red = rightWave;
 	float green = leftWave + rightWave;
+	float blue = leftWave;
 
-	gl_FragColor = vec4( vec3( red, green, 0.0 ), 1.0 );
+	gl_FragColor = vec4( vec3( red, green, blue ), 1.0 );
 
 }
